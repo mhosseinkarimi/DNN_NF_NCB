@@ -1,0 +1,7 @@
+# python bytecode
+__pychache/
+*.pyc
+*.pyo
+*.pyd
+
+
