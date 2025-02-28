@@ -1,7 +1,12 @@
 # python bytecode
-__pychache/
+__pychache__/
 *.pyc
 *.pyo
 *.pyd
 
+# datasets
+data/
+
+# saved models and logs
+artifacts/
 
