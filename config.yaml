@@ -1,0 +1,68 @@
+# Optimal model structure with with 4 hidden layers
+hptuning_4_layers:
+  name: 'hptuning_4_layers'
+  structures :
+    - [128, 128, 128, 128]
+    - [256, 256, 256, 256]
+    - [512, 512, 512, 512]
+    - [1024, 1024, 1024, 1024]
+    - [128, 256, 256, 128]
+    - [256, 512, 512, 256]
+    - [512, 1024, 1024, 512]
+    - [1024, 512, 256, 128]
+    - [512, 256, 128, 64]
+    - [256, 128, 64, 32]
+    - [64, 128, 128, 64]
+  num_epochs: 150
+  batch_size: 256
+  learning_rate: 0.001
+  max_trials: 3
+  dropout: None
+  directory: 'artifacts/logs'
+  device: '/GPU:0'
+
+# Optimal model structure with with 5 hidden layers
+hptuning_5_layers:
+  name: 'hptuning_5_layers'
+  structures :
+      - [128, 128, 128, 128, 128]
+      - [256, 256, 256, 256, 256]
+      - [512, 512, 512, 512, 512]
+      - [1024, 1024, 1024, 1024, 1024]
+      - [128, 256, 512, 256, 128]
+      - [256, 512, 1024, 512, 256]
+      - [512, 1024, 1024, 1024, 512]
+      - [1024, 512, 256, 128, 64]
+      - [512, 256, 128, 64, 32]
+      - [256, 512, 512, 512, 256]
+      - [64, 128, 256, 128, 64]
+  num_epochs: 150
+  batch_size: 256
+  learning_rate: 0.001
+  max_trials: 3
+  dropout: None
+  directory: 'artifacts/logs'
+  device: '/GPU:0'
+
+# Optimal model structure with with 6 hidden layers
+hptuning_6_layers:
+  name: 'hptuning_6_layers'
+  structures :
+      - [128, 128, 128, 128, 128, 128]
+      - [256, 256, 256, 256, 256, 256]
+      - [512, 512, 512, 512, 512, 512]
+      - [1024, 1024, 1024, 1024, 1024, 1024]
+      - [128, 256, 512, 512, 256, 128]
+      - [256, 512, 1024, 1024, 512, 256]
+      - [512, 1024, 1024, 1024, 1024, 512]
+      - [1024, 512, 256, 128, 64, 32]
+      - [256, 512, 512, 512, 512, 256]
+      - [64, 128, 256, 256, 128, 64]
+      - [128, 256, 256, 256, 256, 128]
+  num_epochs: 150
+  batch_size: 256
+  learning_rate: 0.001
+  max_trials: 3
+  dropout: None
+  directory: 'artifacts/logs'
+  device: '/GPU:0'
