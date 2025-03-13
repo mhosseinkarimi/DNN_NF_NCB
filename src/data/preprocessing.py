@@ -15,7 +15,23 @@ def preprocessing_location_polar_output(bf_points, null_points, w):
          np.hstack([bf_angle, null_angle])/(np.pi/2),])
         #  np.cos(np.hstack([bf_angle, null_angle])),
         #  np.sin(np.hstack([bf_angle, null_angle]))])
-        # TODO: Sine and cosine inputs should be added in another method
+    w = w / np.sqrt(np.sum(np.abs(w)**2, axis=1)).reshape(-1, 1)
+    w_mag = 20*np.log10(np.abs(w))
+    w_phase = np.angle(w)
+    w_phase = np.mod(w_phase - np.expand_dims(w_phase[:, 0], axis=1), 2*np.pi)
+    return data, w_mag, w_phase
+
+def preprocessing_location_sine_features(bf_points, null_points, w):
+    # Reformatting and reshaping data
+    bf_dist = bf_points[:, 1].reshape(-1, 1)
+    bf_angle = bf_points[:, 0].reshape(-1, 1)
+    null_dist = null_points[:, 1]
+    null_angle = null_points[:, 0]
+    data = np.hstack(
+        [np.hstack([bf_dist, null_dist])/6.0,
+         np.hstack([bf_angle, null_angle])/(np.pi/2),
+         np.cos(np.hstack([bf_angle, null_angle])),
+         np.sin(np.hstack([bf_angle, null_angle]))])
     w = w / np.sqrt(np.sum(np.abs(w)**2, axis=1)).reshape(-1, 1)
     w_mag = 20*np.log10(np.abs(w))
     w_phase = np.angle(w)
