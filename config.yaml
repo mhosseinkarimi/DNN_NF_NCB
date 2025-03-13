@@ -66,3 +66,31 @@ hptuning_6_layers:
   dropout: None
   directory: 'artifacts/logs'
   device: '/GPU:0'
+
+train:
+  phase:
+    name:  'train_phase'
+    structure: [1024, 1024, 1024, 1024]
+    num_epochs: 250
+    batch_size: 10000
+    learning_rate: 0.01
+    lr_scheduling: 'exp'
+    lr_step: 0.99
+    dropout: None
+    device: '/GPU:0'
+  
+  mag:
+    name:  'train_mag'
+    structure: [1024, 1024, 1024, 1024]
+    num_epochs: 250
+    batch_size: 10000
+    learning_rate: 0.01
+    lr_scheduling: 'exp'
+    lr_step: 0.99
+    dropout: None
+    device: '/GPU:0'
+
+  directory: 
+    logs: 'artifacts/logs/train'
+    figures: 'artifacts/figures/train'
+    models: 'artifacts/models/train'
