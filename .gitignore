@@ -10,3 +10,6 @@ data/
 # saved models and logs
 artifacts/
 
+# Generated results for tests
+tests/
+
