@@ -10,9 +10,9 @@ from src.utils.misc import load_config
 
 # Load the data
 print("Loading the data...")
-bf_points = scipy.io.loadmat("data/GNF 3 null HP tuning/LCMV_BF_points_3nulls_100000data_points_50range_4angle_sep.mat")["BF_point"]
-null_points = scipy.io.loadmat("data/GNF 3 null HP tuning/LCMV_null_points_3nulls_100000data_points_50range_4angle_sep.mat")["null_point"]
-weights = scipy.io.loadmat("data/GNF 3 null HP tuning/LCMV_weights_3nulls_100000data_points_50range_4angle_sep.mat")["W"]
+bf_points = scipy.io.loadmat("data/GNF 2 null HP tuning/LCMV_BF_points_2nulls_400000data_points_50range_8angle_sep.mat")["BF_point"]
+null_points = scipy.io.loadmat("data/GNF 2 null HP tuning/LCMV_null_points_2nulls_400000data_points_50range_8angle_sep.mat")["null_point"]
+weights = scipy.io.loadmat("data/GNF 2 null HP tuning/LCMV_weights_2nulls_400000data_points_50range_8angle_sep.mat")["W"]
 print("Data loaded successfully!")
 
 # adds one dimension for the case of 1 null comment in other cases
@@ -56,6 +56,17 @@ ms = HPModelSelection(params=config['hptuning_6_layers'], input_size=train_data.
 
 # Run the model selection search
 with open(config['hptuning_6_layers']['directory'] + '/' + config['hptuning_6_layers']['name'] + '/' + 'logs.txt', 'w') as f:
+    with contextlib.redirect_stdout(f):
+        print("Starting the Model Selection Search...")
+        ms.run(train_data, train_w_phase, train_w_mag, val_data, val_w_phase, val_w_mag)
+        print("Search terminated successfully!")
+        
+# --------------- Model Selection ----------------------
+# Initialize the model selection class
+ms = HPModelSelection(params=config['model_selection'], input_size=train_data.shape[1], output_size=train_w_phase.shape[1])
+
+# Run the model selection search
+with open(config['model_selection']['directory'] + '/' + config['model_selection']['name'] + '/' + 'logs.txt', 'w') as f:
     with contextlib.redirect_stdout(f):
         print("Starting the Model Selection Search...")
         ms.run(train_data, train_w_phase, train_w_mag, val_data, val_w_phase, val_w_mag)
