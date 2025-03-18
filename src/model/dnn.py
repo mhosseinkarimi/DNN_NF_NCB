@@ -34,10 +34,10 @@ class FCDNN:
         return model
     
     def predict(self, data):
-        self.model(data)
+        return self.model(data)
     
     def __call__(self, data):
-        self.predict(data)
+        return self.predict(data)
         
     def train(self,
               train_data, train_label,
