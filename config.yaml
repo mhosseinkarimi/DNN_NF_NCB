@@ -13,9 +13,9 @@ hptuning_4_layers:
     - [512, 256, 128, 64]
     - [256, 128, 64, 32]
     - [64, 128, 128, 64]
-  num_epochs: 150
-  batch_size: 256
-  learning_rate: 0.001
+  num_epochs: 300
+  batch_size: 10000
+  learning_rate: 0.01
   max_trials: 3
   dropout: None
   directory: 'artifacts/logs'
@@ -36,9 +36,9 @@ hptuning_5_layers:
       - [512, 256, 128, 64, 32]
       - [256, 512, 512, 512, 256]
       - [64, 128, 256, 128, 64]
-  num_epochs: 150
-  batch_size: 256
-  learning_rate: 0.001
+  num_epochs: 300
+  batch_size: 10000
+  learning_rate: 0.01
   max_trials: 3
   dropout: None
   directory: 'artifacts/logs'
@@ -59,19 +59,40 @@ hptuning_6_layers:
       - [256, 512, 512, 512, 512, 256]
       - [64, 128, 256, 256, 128, 64]
       - [128, 256, 256, 256, 256, 128]
-  num_epochs: 150
-  batch_size: 256
-  learning_rate: 0.001
+      - [256, 512, 1024, 1024, 512, 256]
+      - 
+  num_epochs: 300
+  batch_size: 10000
+  learning_rate: 0.01
   max_trials: 3
   dropout: None
   directory: 'artifacts/logs'
   device: '/GPU:0'
 
+model_selection:
+  name: 'model_selection'
+  structures :
+      - [1024, 1024, 1024, 1024]
+      - [512, 1024, 1024, 512]
+      - [1024, 1024, 1024, 1024, 1024]
+      - [512, 1024, 1024, 1024, 512]
+      - [1024, 1024, 1024, 1024, 1024, 1024]
+      - [512, 1024, 1024, 1024, 1024, 512]
+      - [256, 512, 512, 512, 512, 256]
+  num_epochs: 300
+  batch_size: 10000
+  learning_rate: 0.01
+  max_trials: 5
+  dropout: None
+  directory: 'artifacts/logs'
+  device: '/GPU:0'
+
+# Training Parameters
 train:
   phase:
     name:  'train_phase'
-    structure: [1024, 1024, 1024, 1024]
-    num_epochs: 250
+    structure: [1024, 1024, 1024, 1024, 1024, 1024]
+    num_epochs: 300
     batch_size: 10000
     learning_rate: 0.01
     lr_scheduling: 'exp'
@@ -81,8 +102,8 @@ train:
   
   mag:
     name:  'train_mag'
-    structure: [1024, 1024, 1024, 1024]
-    num_epochs: 250
+    structure: [1024, 1024, 1024, 1024, 1024, 1024]
+    num_epochs: 300
     batch_size: 10000
     learning_rate: 0.01
     lr_scheduling: 'exp'
@@ -94,3 +115,14 @@ train:
     logs: 'artifacts/logs/train'
     figures: 'artifacts/figures/train'
     models: 'artifacts/models/train'
+
+test:
+  phase:
+    structure: [1024, 1024, 1024, 1024, 1024]
+    device: '/GPU:0'
+  
+  mag:
+    structure: [1024, 1024, 1024, 1024, 1024, 1024]
+    device: '/GPU:0'
+  
+  directory: 'E:\DL-based Near Field NCB\Testing Beam Patterns\test cases'
