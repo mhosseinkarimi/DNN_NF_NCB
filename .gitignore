@@ -10,3 +10,5 @@ data/
 # saved models and logs
 artifacts/
 
+# test cases
+tests/
