@@ -57,7 +57,7 @@ class HPModelSelection:
                 losses = model.train(
                     train_data, train_w_phase, val_data, val_w_phase,
                     epochs=self.params['num_epochs'], batch_size=self.params['batch_size'], lr=self.params['learning_rate'], 
-                    lr_scheduler=None, device=self.params['device'])
+                    lr_scheduler=None, device=self.params['device'], grad_clip=self.params['grad_clip'])
                 arg_best_phase = np.argmin(losses['val'])
                 bests_phase[model_name]['train'].append(losses['train_infer'][arg_best_phase])
                 bests_phase[model_name]['val'].append(losses['val'][arg_best_phase])
@@ -73,7 +73,7 @@ class HPModelSelection:
                 losses = model.train(
                     train_data, train_w_mag, val_data, val_w_mag,
                     epochs=self.params['num_epochs'], batch_size=self.params['batch_size'], lr=self.params['learning_rate'], 
-                    lr_scheduler=None, device=self.params['device'])
+                    lr_scheduler=None, device=self.params['device'], grad_clip=self.params['grad_clip'])
                 arg_best_mag = np.argmin(losses['val'])
                 bests_mag[model_name]['train'].append(losses['train_infer'][arg_best_mag])
                 bests_mag[model_name]['val'].append(losses['val'][arg_best_mag])

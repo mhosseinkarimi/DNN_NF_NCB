@@ -17,9 +17,9 @@ from datetime import datetime
 
 # Load the data
 print('Loading the data...')
-bf_points = scipy.io.loadmat('data/General NF 2 nulls Region 8 deg separation/LCMV_BF_points_2nulls_1000000data_points.mat')['BF_point']
-null_points = scipy.io.loadmat('data/General NF 2 nulls Region 8 deg separation/LCMV_null_points_2nulls_1000000data_points.mat')['null_point']
-weights = scipy.io.loadmat('data/General NF 2 nulls Region 8 deg separation/LCMV_weights_2nulls_1000000data_points.mat')['W']
+bf_points = scipy.io.loadmat('data/GNF 3 null Train/LCMV_BF_points_3nulls_1000000data_points_50range_8angle_sep.mat')['BF_point']
+null_points = scipy.io.loadmat('data/GNF 3 null Train/LCMV_null_points_3nulls_1000000data_points_50range_8angle_sep.mat')['null_point']
+weights = scipy.io.loadmat('data/GNF 3 null Train/LCMV_weights_3nulls_1000000data_points_50range_8angle_sep.mat')['W']
 print('Data loaded successfully!')
 
 # adds one dimension for the case of 1 null comment in other cases
@@ -27,7 +27,7 @@ print('Data loaded successfully!')
 
 # Preprocessing
 data, w_mag, w_phase = preprocessing_location_polar_output(bf_points, null_points, weights)
-train_data, val_data, train_w_mag, val_w_mag, train_w_phase, val_w_phase = train_test_split(data, w_mag, w_phase, test_size=0.5, random_state=42)
+train_data, val_data, train_w_mag, val_w_mag, train_w_phase, val_w_phase = train_test_split(data, w_mag, w_phase, test_size=0.2, random_state=42)
 del data, w_mag, w_phase
 
 
@@ -86,7 +86,8 @@ with open(str(log_dir/'phase'/'train_log'/f'train_logs_DNN_{config["train"]["pha
             batch_size=config['train']['phase']['batch_size'],
             lr=config['train']['phase']['learning_rate'],
             lr_scheduler=lr_scheduler,
-            device=config['train']['phase']['device']
+            device=config['train']['phase']['device'],
+            grad_clip=config['train']['phase']['grad_clip']
             )
 
 # Save the loss values
@@ -154,7 +155,8 @@ with open(str(log_dir/'magnitude'/'train_log'/f'train_logs_DNN_{config["train"][
             batch_size=config['train']['mag']['batch_size'],
             lr=config['train']['mag']['learning_rate'],
             lr_scheduler=lr_scheduler,
-            device=config['train']['mag']['device']
+            device=config['train']['mag']['device'],
+            grad_clip=config['train']['phase']['grad_clip']
             )
 
 # Save the loss values

@@ -47,7 +47,8 @@ class FCDNN:
               optimizer=Adam,
               lr=0.01,
               lr_scheduler=None,
-              device="/CPU:0"
+              device="/CPU:0",
+              grad_clip=None
               ):
 
         # initialize optimizer
@@ -93,6 +94,9 @@ class FCDNN:
                         
                         # Applying the gradients
                         gradients = tape.gradient(train_loss,self. model.trainable_variables)
+                        # Gradient Clipping
+                        if grad_clip:
+                            gradients = [tf.clip_by_norm(g, clip_norm=grad_clip) for g in gradients]
                         optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
 
                         epoch_train_infer_loss += train_inference_loss
