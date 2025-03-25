@@ -20,6 +20,7 @@ hptuning_4_layers:
   dropout: None
   directory: 'artifacts/logs'
   device: '/GPU:0'
+  grad_clip: 1.0
 
 # Optimal model structure with with 5 hidden layers
 hptuning_5_layers:
@@ -43,6 +44,7 @@ hptuning_5_layers:
   dropout: None
   directory: 'artifacts/logs'
   device: '/GPU:0'
+  grad_clip: 1.0
 
 # Optimal model structure with with 6 hidden layers
 hptuning_6_layers:
@@ -68,6 +70,7 @@ hptuning_6_layers:
   dropout: None
   directory: 'artifacts/logs'
   device: '/GPU:0'
+  grad_clip: 1.0
 
 model_selection:
   name: 'model_selection'
@@ -93,32 +96,34 @@ train:
     name:  'train_phase'
     structure: [1024, 1024, 1024, 1024, 1024, 1024]
     num_epochs: 300
-    batch_size: 10000
+    batch_size: 1024
     learning_rate: 0.01
     lr_scheduling: 'exp'
     lr_step: 0.99
-    dropout: None
+    dropout: 0.1
     device: '/GPU:0'
+    grad_clip: 0.05
   
   mag:
     name:  'train_mag'
     structure: [1024, 1024, 1024, 1024, 1024, 1024]
     num_epochs: 300
-    batch_size: 10000
-    learning_rate: 0.01
+    batch_size: 1024
+    learning_rate: 0.001
     lr_scheduling: 'exp'
     lr_step: 0.99
-    dropout: None
+    dropout: 0.1
     device: '/GPU:0'
+    grad_clip: 0.05
 
   directory: 
-    logs: 'artifacts/logs/train'
-    figures: 'artifacts/figures/train'
-    models: 'artifacts/models/train'
+    logs: 'artifacts/logs/train_3null'
+    figures: 'artifacts/figures/train_3null'
+    models: 'artifacts/models/train_3null'
 
 test:
   phase:
-    structure: [1024, 1024, 1024, 1024, 1024]
+    structure: [1024, 1024, 1024, 1024, 1024, 1024]
     device: '/GPU:0'
   
   mag:
